@@ -1,0 +1,10 @@
+<html>
+   <body>
+      <h2>My Files</h2>
+      <h6>{{files}}</h6>
+         {% for file in files %}
+         <!--Render and display the files in an img tag-->
+         <img src="{{ url_for('uploaded_files', filename = file) }}" alt="file">
+         {% endfor %}
+   </body>
+</html>

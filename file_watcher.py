@@ -8,6 +8,8 @@ import time
 
 class MyEvent(LoggingEventHandler):
     def dispatch(self, event):
+        #TODO Debug events running more than once
+        #print(event)
         if not event.is_directory:
             if event.event_type == 'created':
                 new_file = event._src_path
