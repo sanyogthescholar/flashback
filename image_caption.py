@@ -3,7 +3,7 @@ from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
 import chromadb
 import uuid
-ENV = "WEB"
+ENV = "BACK"
 chroma_client = chromadb.PersistentClient(path="chromadb")
 
 try:

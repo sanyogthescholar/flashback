@@ -97,7 +97,7 @@ def get_response_image(image_path):
     img = open(image_path, mode='rb') # reads the PIL image
     print(image_path)
     byte_arr = img.read()
-    encoded_img = base64.encodebytes(byte_arr).decode('ascii') # encode as base64
+    encoded_img = base64.encodebytes(byte_arr).decode('utf-8') # encode as base64
     return encoded_img
 
 #create an endpoint to get all the files uploaded by a specific user
