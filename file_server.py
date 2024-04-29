@@ -9,6 +9,7 @@ import io
 import base64
 from PIL import Image
 from dotenv import load_dotenv
+from file_size import get_folder_size
 
 load_dotenv()
 
@@ -116,6 +117,12 @@ def get_files():
       encoded_imges.append((get_response_image(image_path)))
    return jsonify({'result': encoded_imges})
    #return encoded_imges[0]
+
+#create an endpoint to view the size of all files uploaded by a user
+@app.route('/getsize', methods = ['GET'])
+def get_size():
+   name = request.args.get('name')
+   return {"size": get_folder_size(f"uploaded_files/{name}").MB}
 
 if __name__ == '__main__':
    app.run(debug = True)
