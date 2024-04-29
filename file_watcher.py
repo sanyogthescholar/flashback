@@ -7,18 +7,22 @@ import image_caption
 import time
 
 class MyEvent(LoggingEventHandler):
+    new_file_path = "" #temp variable to store the path of the new file
     def dispatch(self, event):
-        #TODO Debug events running more than once
-        #print(event)
         if not event.is_directory:
-            if event.event_type == 'created':
+            print(f"{event = }")
+            if event.event_type == 'created': #if the event is a file creation event
                 new_file = event._src_path
-                print(new_file)
-                print(f"{event.event_type = }")
-                start = time.time()
-                result = image_caption.caption_image(new_file)
-                end = time.time() - start
-                print(f"{result = }\n{end = }")
+                if new_file == self.new_file_path: #if the file is the same as the last file
+                    print("!!File already processed!!")
+                    return
+                self.new_file_path = new_file #set the new file as the last file
+                #print(new_file)
+                #print(f"{event.event_type = }")
+                #start = time.time()
+                result = image_caption.caption_image(new_file) #caption the image and store in ChromaDB
+                #end = time.time() - start
+                #print(f"{result = }\n{end = }")
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
