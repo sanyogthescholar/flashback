@@ -48,12 +48,19 @@ def search():
     #search with GET method using the search parameter from the URL
    if request.method == 'GET':
       query = request.args.get('search')
+      owner = request.args.get('user_id')
       results = collection.query(
             query_texts=[query],
-            n_results=10
+            n_results=10,
+            owner = owner
         )
-        #return in JSON
-      return {"results": results}
+      #instead of returning in JSON, we need to encode in base64 and return each image
+      encoded_imges = []
+      for i in range(len(results['metadatas'][0])):
+         encoded_imges.append((get_response_image(results['metadatas'][0][i]['path'])))
+      return jsonify({'result': encoded_imges})
+      #return in JSON
+      #return {"results": results}
 
 def get_database():
    # Provide the mongodb atlas url to connect python to mongodb using pymongo
@@ -121,8 +128,8 @@ def get_files():
 #create an endpoint to view the size of all files uploaded by a user
 @app.route('/getsize', methods = ['GET'])
 def get_size():
-   name = request.args.get('name')
-   return {"size": get_folder_size(f"uploaded_files/{name}").MB}
+   owner = request.args.get('user_id')
+   return {"size": get_folder_size(f"uploaded_files/{owner}").MB}
 
 if __name__ == '__main__':
    app.run(debug = True)
