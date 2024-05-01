@@ -85,7 +85,7 @@ def save_uploaded_file():
                "owner": request.form['name']
             }
             collection.insert_one(file)
-      return 'file uploaded successfully'
+      return f'{len(files)} file(s) uploaded successfully'
 
 #https://stackoverflow.com/a/64067673/13681680
 """def get_response_image(image_path):
