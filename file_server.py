@@ -15,7 +15,7 @@ load_dotenv()
 
 app = Flask(__name__)
 chroma_client = chromadb.PersistentClient(path="chromadb")
-collection = chroma_client.get_collection(name="my_collection")
+collection = chroma_client.get_or_create_collection(name="my_collection")
 
 @app.route('/')
 def upload_file():
