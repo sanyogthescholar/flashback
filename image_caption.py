@@ -32,7 +32,7 @@ def caption_image(path):
         caption = processor.decode(out[0], skip_special_tokens=True)
         collection.add(
             documents=[caption],
-            metadatas=[{"path": path, "owner":path.split("\\")[-2]}],
+            metadatas=[{"path": path, "owner":path.split("/")[-2]}],
             ids=[str(uuid.uuid4())]
             )
         results = collection.query(
