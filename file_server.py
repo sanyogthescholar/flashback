@@ -38,7 +38,7 @@ def get():
 def delete_all():
       for root, dirs, files in os.walk("uploaded_files"):
          for d in dirs:
-               shutil.rmtree(root+"\\"+d)
+               shutil.rmtree(root+"/"+d)
       return {"status": "success"}
 """End of Debug Routes"""
 
