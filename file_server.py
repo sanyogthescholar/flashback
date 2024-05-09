@@ -82,7 +82,7 @@ def save_uploaded_file():
       for f in files:
          try:
             print(f"******\n\nAPP INSTANCE PATH {app.instance_path}\n\n******")
-            f.save(os.path.join(app.instance_path, request.form['user_id'], secure_filename(f.filename))) #https://stackoverflow.com/a/42425388/13681680
+            f.save(os.path.join(os.cwd(), "uploaded_files", request.form['user_id'], secure_filename(f.filename))) #https://stackoverflow.com/a/42425388/13681680
          except FileNotFoundError: #the directory doesn't exist
             os.makedirs("uploaded_files/" + str(request.form['user_id']), exist_ok=True) #create directory and typecast to string for safety.Also https://stackoverflow.com/a/273227/13681680
             f.save(os.path.join("uploaded_files", request.form['user_id'], secure_filename(f.filename)))
