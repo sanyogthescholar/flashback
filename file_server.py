@@ -89,7 +89,7 @@ def save_uploaded_file():
             file = {
                "name": f.filename,
                "path": os.path.join("uploaded_files", request.form['user_id'], secure_filename(f.filename)),
-               "owner": request.form['name']
+               "owner": request.form['user_id']
             }
             collection.insert_one(file)
       return f'{len(files)} file(s) uploaded successfully'
