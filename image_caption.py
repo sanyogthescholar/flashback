@@ -21,7 +21,7 @@ def caption_image(path):
     if ENV == "WEB":
         collection.add(
         documents=["dummy caption"],
-        metadatas=[{"path": path, "owner":path.split("\\")[-2]}],
+        metadatas=[{"path": path, "owner":path.split("/")[-2]}],
         ids=[str(uuid.uuid4())]
         )
         return "dummy caption"
