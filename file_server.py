@@ -52,7 +52,7 @@ def search():
       results = collection.query(
             query_texts=[query],
             n_results=10,
-            owner = owner
+            where={"owner":owner}
         )
       #instead of returning in JSON, we need to encode in base64 and return each image
       encoded_imges = []
@@ -76,6 +76,7 @@ def get_database():
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def save_uploaded_file():
+   print("******\n\nUPLOADER CALLED\n\n******")
    if request.method == 'POST':
       files = request.files.getlist('file')
       for f in files:
@@ -112,7 +113,8 @@ def get_response_image(image_path):
 #create an endpoint to get all the files uploaded by a specific user
 @app.route('/getfiles', methods = ['GET'])
 def get_files():
-   name = request.args.get('name')
+   name = request.args.get('user_id')
+   print(f"***\n\nGETFILES CALLED\n\nUser ID = {name}***")
    files = []
    for root, dirs, filenames in os.walk(f"uploaded_files/{name}"):
       for file in filenames:
